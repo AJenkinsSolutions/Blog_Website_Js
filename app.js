@@ -1,6 +1,7 @@
 
 const express = require("express");
 const ejs = require("ejs");
+var _ = require('lodash');
 
 const app = express();
 const port = 3000;
@@ -45,7 +46,17 @@ app.post("/compose", (req, res) =>{
   res.redirect("/home");
 })
 
-app.get('/post', (req, res)=>{
+app.get('/post/:postName', (req, res)=>{
+let requestedTitle = _.lowerCase(req.params.postName);
+requestedTitle = _.trim(requestedTitle, [chars=whitespace]);
+
+
+  posts.forEach((post) =>{
+    let storedTitle = post.title;
+    if(storedTitle === requestedTitle){
+      console.log('Match');
+    }
+  })
   res.render('post', {});
 });
 
