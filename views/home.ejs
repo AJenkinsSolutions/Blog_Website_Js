@@ -1,12 +1,20 @@
 <%- include('partials/header'); -%>
 
 
-<h1>hello home</h1>
+<h1>home</h1>
 
-    <div class="container-fluid">
+    <div class="container">
 
-        <p> <%= homeContent %>  </p>
-
+        <%if(posts.length > 0){%>
+        <ul>
+            <%posts.forEach((post) => {%>
+                <h3> <%= post.title %></h3>
+                <l1> <%= post.body %> </l1>
+            <%});%>
+        </ul>
+    <%}else{%>
+        <%=homeContent%>
+    <%}%>
     </div>
 
 <%- include('partials/footer'); -%>

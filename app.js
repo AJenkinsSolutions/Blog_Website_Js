@@ -18,8 +18,8 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 let posts = [];
 
 app.get(['/','/home'], (req, res)=>{
-  console.log(posts);
-    res.render('home', {homeContent: homeStartingContent});
+  console.log(posts[0]);
+    res.render('home', {homeContent: homeStartingContent, posts:posts});
 });
 
 app.get('/contact', (req, res)=>{
@@ -36,11 +36,11 @@ app.get('/compose', (req, res)=>{
 });
 app.post("/compose", (req, res) =>{
 
-  const composeObject ={
-  Title:req.body.composeTitle,
-  Body:req.body.composeTextArea
+  let composeObject ={
+  title: String(req.body.composeTitle),
+  body: String(req.body.composeTextArea)
 }
-  console.log(composeObject.Title, composeObject.Body);
+  // console.log(composeObject.Title, composeObject.Body);
   posts.push(composeObject);
   res.redirect("/home");
 })
