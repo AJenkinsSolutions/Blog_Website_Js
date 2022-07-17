@@ -15,9 +15,10 @@ const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pelle
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
 
-
+let posts = [];
 
 app.get(['/','/home'], (req, res)=>{
+  console.log(posts);
     res.render('home', {homeContent: homeStartingContent});
 });
 
@@ -30,8 +31,19 @@ app.get('/about', (req, res)=>{
 });
 
 app.get('/compose', (req, res)=>{
+  
   res.render('compose', {});
 });
+app.post("/compose", (req, res) =>{
+
+  const composeObject ={
+  Title:req.body.composeTitle,
+  Body:req.body.composeTextArea
+}
+  console.log(composeObject.Title, composeObject.Body);
+  posts.push(composeObject);
+  res.redirect("/home");
+})
 
 app.get('/post', (req, res)=>{
   res.render('post', {});
