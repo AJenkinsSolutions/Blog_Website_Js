@@ -17,9 +17,27 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 
 
-app.get('/', (req, res)=>{
+app.get(['/','/home'], (req, res)=>{
     res.render('home', {homeContent: homeStartingContent});
 });
+
+app.get('/contact', (req, res)=>{
+  res.render('contact', {contactContent: contactContent});
+});
+
+app.get('/about', (req, res)=>{
+  res.render('about', {aboutContent: aboutContent});
+});
+
+app.get('/compose', (req, res)=>{
+  res.render('compose', {});
+});
+
+app.get('/post', (req, res)=>{
+  res.render('post', {});
+});
+
+
 
 
 
