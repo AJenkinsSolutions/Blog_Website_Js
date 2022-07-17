@@ -1,8 +1,8 @@
 <%- include('partials/header'); -%>
 
-<h1>post</h1>
+<h1><%= requestedPost.title %></h1>
     <div class="container">
-        <p>posts contents</p>
+        <p><%= requestedPost.body %></p>
     </div>
 
 <%- include('partials/footer'); -%>

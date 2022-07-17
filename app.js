@@ -1,7 +1,7 @@
 
 const express = require("express");
 const ejs = require("ejs");
-var _ = require('lodash');
+const _ = require('lodash');
 
 const app = express();
 const port = 3000;
@@ -37,9 +37,12 @@ app.get('/compose', (req, res)=>{
 });
 app.post("/compose", (req, res) =>{
 
+  let bodyPreview = req.body.composeTextArea.substring(0,100) + '...';
+
   let composeObject ={
   title: String(req.body.composeTitle),
-  body: String(req.body.composeTextArea)
+  body: String(req.body.composeTextArea),
+  preview : String(bodyPreview)
 }
   // console.log(composeObject.Title, composeObject.Body);
   posts.push(composeObject);
@@ -47,17 +50,19 @@ app.post("/compose", (req, res) =>{
 })
 
 app.get('/post/:postName', (req, res)=>{
+// Convert users requested title in to lower case and remove white spqace
 let requestedTitle = _.lowerCase(req.params.postName);
-requestedTitle = _.trim(requestedTitle, [chars=whitespace]);
-
 
   posts.forEach((post) =>{
-    let storedTitle = post.title;
+    let storedTitle = _.lowerCase(post.title);
+
     if(storedTitle === requestedTitle){
-      console.log('Match');
+      res.render('post', {requestedPost: post});
+    }else{
+      res.render('post', {})
     }
   })
-  res.render('post', {});
+  
 });
 
 
